@@ -1,0 +1,58 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+  background-color: #ff6a00 !important;
+}
+
+.main-container {
+    min-height: 700px;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-botton-container {
+    max-height: 100px;
+    display: flex;
+    border: 1px;
+}
+
+.home-header {
+    display: flex;
+    align-items: center;   
+    width: 100%;
+    height: 200px;
+    padding: 0 20px;
+}
+
+.home-photo-container {
+    background-image: url('/images/photo_2024-09-04_09-08-51.png');
+    background-size: cover;
+    background-position: left;
+    background-repeat: no-repeat;
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+}
+
+.home-header-text-container {
+    font-size: 20px;
+    margin-left: 100px;
+}

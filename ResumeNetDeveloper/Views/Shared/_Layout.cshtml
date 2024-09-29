@@ -1,0 +1,98 @@
+﻿@inject ResumeNetDeveloper.Resources.SharedLocalizationService sharedLocalizer
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ResumeNetDeveloper</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <!-- Логотип -->
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Kostyukov Roman</a>
+
+                <!-- Блок с кнопками меню, выровненными по центру -->
+                <div class="d-flex justify-content-center flex-grow-1">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@sharedLocalizer["Header.Button.AboutMe"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+
+                
+
+                <!-- Блок с кнопками авторизации -->
+                <div class="d-flex">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-link text-dark">Logout</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-controller="Account" asp-action="ExternalLogin" method="post">
+                            <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+                            <button type="submit">Войти с Google</button>
+                        </form>
+                    }
+                </div>
+
+                <!-- Удалить аккаунт -->
+                <form asp-action="DeleteAccount" method="post" class="d-inline ms-2">
+                    <button type="submit" class="btn btn-danger">Удалить аккаунт</button>
+                </form>
+
+                <div class="language-selector">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        @sharedLocalizer["Header.Button.Language"]
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li>
+                            <form action="@Url.Action("SetLanguage", "Home")" method="post" class="d-inline">
+                                <input type="hidden" name="culture" value="en-US" />
+                                <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                                <button type="submit" class="dropdown-item">English</button>
+                            </form>
+                        </li>
+                        <li>
+                            <form action="@Url.Action("SetLanguage", "Home")" method="post" class="d-inline">
+                                <input type="hidden" name="culture" value="uk-UA" />
+                                <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                                <button type="submit" class="dropdown-item">Українська</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="main-botton-container">
+        &copy; 2024 - ResumeNetDeveloper - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </footer>
+    @*<div class="container">
+    &copy; 2024 - ResumeNetDeveloper - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

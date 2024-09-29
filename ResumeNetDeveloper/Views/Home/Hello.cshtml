@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Hello";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Hello</h1>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <p>Email пользователя: @ViewData["UserEmail"]</p>
+    }
+    else
+    {
+        <p>Вы не авторизованы.</p>
+    }
+</div>

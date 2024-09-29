@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    var selectedEmployerId = ViewBag.SelectedEmployerId as int?;
+}
+
+<div class="home-header">
+    <div class="home-photo-container"></div>
+    <div class="home-header-text-container">Hello</div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Employer Name</th>
+            <th>Position</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employer in ViewBag.Employers)
+        {
+            <tr>
+                <td>@employer.Name</td>
+                <td>@employer.Position</td>
+                <td>@employer.StartDate.ToString("d")</td>
+                <td>
+                    @if (employer.EndDate != null) 
+                    {
+                        @((DateTime)employer.EndDate);
+                    }
+                    else 
+                    {
+                        <span>Ongoing</span>
+                    }
+                </td>
+                <td>@employer.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<form method="get" action="/">
+    <select name="employerId" onchange="this.form.submit()">
+        <option value="">All Employers</option>
+        @foreach (var employer in ViewBag.Employers)
+        {
+            var isSelected = selectedEmployerId == employer.Id ? "selected" : null;
+            <option value="@employer.Id" selected="@isSelected">@employer.Name</option>
+        }
+    </select>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Skill</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var skill in Model)
+        {
+            <tr>
+                <td>@skill.SkillName</td>
+                <td>@skill.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>
